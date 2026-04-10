@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PersonalFinanceTracker.Models.ViewModels;
+using PersonalFinancialSystem.Models.ViewModels;
 using System.Security.Claims;
-namespace PersonalFinanceTracker.Controllers
+namespace PersonalFinancialSystem.Controllers
 {
     [Authorize]
     public class TransactionController : Controller

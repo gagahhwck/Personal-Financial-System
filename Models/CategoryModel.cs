@@ -1,4 +1,4 @@
-namespace PersonalFinanceTracker.Models
+namespace PersonalFinancialSystem.Models
 {
     public class CategoryModel
     {

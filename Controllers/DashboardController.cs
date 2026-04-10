@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PersonalFinanceTracker.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using PersonalFinancialSystem.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-namespace PersonalFinanceTracker.Controllers
+namespace PersonalFinancialSystem.Controllers
 {
     [Authorize]
     public class DashboardController : Controller

@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using PersonalFinanceTracker.Models;
+using PersonalFinancialSystem.Models;
 
-namespace PersonalFinanceTracker.Data
+namespace PersonalFinancialSystem.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-namespace PersonalFinanceTracker.Controllers
+namespace PersonalFinancialSystem.Controllers
 {
     public class HomeController : Controller
     {

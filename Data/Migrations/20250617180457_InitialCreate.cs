@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace PersonalFinanceTracker.Data.Migrations
+namespace PersonalFinancialSystem.Data.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

@@ -1,4 +1,4 @@
-namespace PersonalFinanceTracker.Models.DTOs
+namespace PersonalFinancialSystem.Models.DTOs
 {
     public class TransactionWithCategoryDto
     {

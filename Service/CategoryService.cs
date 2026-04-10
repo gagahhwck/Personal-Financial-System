@@ -1,4 +1,4 @@
-namespace PersonalFinanceTracker.Service
+namespace PersonalFinancialSystem.Service
 {
     public class CategoryService : ICategoryService
     {

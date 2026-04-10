@@ -1,7 +1,7 @@
 
-using PersonalFinanceTracker.Models;
+using PersonalFinancialSystem.Models;
 
-namespace PersonalFinanceTracker.Interface
+namespace PersonalFinancialSystem.Interface
 {
     public interface ICategoryService
     {

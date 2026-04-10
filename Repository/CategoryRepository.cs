@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using PersonalFinanceTracker.Data;
+using PersonalFinancialSystem.Data;
 
-namespace PersonalFinanceTracker.Repository
+namespace PersonalFinancialSystem.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {

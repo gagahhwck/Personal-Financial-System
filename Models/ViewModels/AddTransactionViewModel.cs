@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PersonalFinanceTracker.Models.ViewModels
+namespace PersonalFinancialSystem.Models.ViewModels
 {
     public class AddTransactionViewModel
     {

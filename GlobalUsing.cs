@@ -1,3 +1,3 @@
-global using PersonalFinanceTracker.Models;
-global using PersonalFinanceTracker.Models.DTOs;
-global using PersonalFinanceTracker.Interface;
+global using PersonalFinancialSystem.Models;
+global using PersonalFinancialSystem.Models.DTOs;
+global using PersonalFinancialSystem.Interface;

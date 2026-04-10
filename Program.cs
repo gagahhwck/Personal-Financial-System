@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PersonalFinanceTracker.Data;
-using PersonalFinanceTracker.Interface;
-using PersonalFinanceTracker.Service;
-using PersonalFinanceTracker.Repository;
+using PersonalFinancialSystem.Data;
+using PersonalFinancialSystem.Interface;
+using PersonalFinancialSystem.Service;
+using PersonalFinancialSystem.Repository;
 
-namespace PersonalFinanceTracker
+namespace PersonalFinancialSystem
 {
     public class Program
     {

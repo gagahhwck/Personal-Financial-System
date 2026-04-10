@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace PersonalFinanceTracker.Data.Migrations
+namespace PersonalFinancialSystem.Data.Migrations
 {
     /// <inheritdoc />
     public partial class transactionandcategories : Migration

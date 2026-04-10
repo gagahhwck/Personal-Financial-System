@@ -44,7 +44,7 @@ A web-based personal and company financial management application built with **A
 ## Project Structure
 
 ```
-PersonalFinanceTracker/
+PersonalFinancialSystem/
 ├── Controllers/            # MVC Controllers (Dashboard, Transaction, Category)
 ├── Data/
 │   ├── ApplicationDbContext.cs
@@ -78,8 +78,8 @@ PersonalFinanceTracker/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/PersonalFinanceTracker.git
-cd PersonalFinanceTracker
+git clone https://github.com/gagahhwck/Personal-Financial-System.git
+cd "Personal-Financial-System"
 ```
 
 ### 2. Configure the Database Connection

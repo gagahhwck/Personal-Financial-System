@@ -1,4 +1,4 @@
-namespace PersonalFinanceTracker.Interface
+namespace PersonalFinancialSystem.Interface
 {
     public interface ITransactionRepository
     {

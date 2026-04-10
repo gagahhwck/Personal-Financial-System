@@ -4,7 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-PersonalFinanceTracker-4d084f4d-21f1-4c2c-9a3a-f1f46c1e73e5</UserSecretsId>
+    <UserSecretsId>aspnet-PersonalFinancialSystem-4d084f4d-21f1-4c2c-9a3a-f1f46c1e73e5</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
