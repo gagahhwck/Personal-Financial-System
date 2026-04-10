@@ -7,13 +7,10 @@ A web-based personal and company financial management application built with **A
 ## Screenshots
 
 ### Home Page
-![Home Page](screenshot/Screenshot%202026-04-10%20202920.png)
+![Home Page](screenshot/homepage.png)
 
 ### My Transactions
-![Transaction List](screenshot/Screenshot%202026-04-10%20202932.png)
-
-### Add Transaction
-![Add Transaction](screenshot/Screenshot%202026-04-10%20202941.png)
+![Transaction List](screenshot/transaction.png)
 
 ---
 
