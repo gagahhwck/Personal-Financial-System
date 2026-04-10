@@ -1,0 +1,196 @@
+@{
+    ViewData["Title"] = "Add Transaction";
+    
+}
+@model AddTransactionViewModel;
+
+<!-- Page Title -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="mb-1">
+                    <i class="fas fa-plus me-2"></i>
+                    Add Transaction
+                </h2>
+                <p class="text-white-50 mb-0">You can add an income or expense transaction</p>
+            </div>
+            <div>
+                <a href="/Dashboard" class="btn btn-outline-light">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Go Back
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--İşlem Ekleme Formu -->
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-edit me-2"></i>
+                    Transaction Details
+                </h5>
+            </div>
+            
+            <div class="card-body">
+                <form id="addTransactionForm" method="post" asp-action="Add" asp-controller="Transaction">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <!-- Transaction Type -->
+                    <div class="mb-4">
+                        <label class="form-label">Transaction Type *</label>
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="radio" class="btn-check" asp-for="TransactionType"
+                                       id="expenseRadio" value=2 checked>
+                                <label class="btn btn-outline-danger w-100 py-3" for="expenseRadio">
+                                    <i class="fas fa-arrow-up fa-lg d-block mb-2"></i>
+                                    <strong>Expense</strong>
+                                    <small class="d-block text-muted">Money out</small>
+                                </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="radio" class="btn-check" asp-for="TransactionType" 
+                                       id="incomeRadio" value=1>
+                                <label class="btn btn-outline-success w-100 py-3" for="incomeRadio">
+                                    <i class="fas fa-arrow-down fa-lg d-block mb-2"></i>
+                                    <strong>Income</strong>
+                                    <small class="d-block text-muted">Money in</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Quick Amount Buttons -->
+                    <div class="mb-4">
+                        <label class="form-label">Quick Amount Selection</label>
+                        <div class="row g-2">
+                            <div class="col-3">
+                                <button type="button" class="btn btn-outline-secondary w-100" 
+                                        onclick="setAmount(10)">$10</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-outline-secondary w-100" 
+                                        onclick="setAmount(25)">$25</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-outline-secondary w-100" 
+                                        onclick="setAmount(50)">$50</button>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-outline-secondary w-100" 
+                                        onclick="setAmount(100)">$100</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Amount -->
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Amount *</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="amount" asp-for="Amount" 
+                                   placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-text">You can enter up to 2 decimal places</div>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category *</label>
+                        <select class="form-select form-select-lg" id="category" asp-for="CategoryId" required>
+                            <option value="">Select a category...</option>
+                            <!-- Expense categories -->
+                            <optgroup label="📉 Expense Categories" id="expense-categories">
+                                @foreach(var category in Model.ExpenseCategories)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            </optgroup>
+                            <!-- Income categories -->
+                            <optgroup label="📈 Income Categories" id="income-categories" style="display: none;">
+                                @foreach(var category in Model.IncomeCategories)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description *</label>
+                        <input type="text" class="form-control" id="description" asp-for="Description" 
+                               placeholder="Transaction description..." required>
+                        <div class="form-text">Provide a descriptive explanation for your transaction</div>
+                    </div>
+
+                    <!-- Date -->
+                    <div class="mb-4">
+                        <label for="date" class="form-label">Date *</label>
+                        <input type="date" class="form-control" id="date" asp-for="TransactionDate" required>
+                    </div>
+
+                    
+
+                    <!-- Form Buttons -->
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <a href="/Dashboard" class="btn btn-outline-secondary w-100">
+                                <i class="fas fa-times me-2"></i>
+                                Cancel
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <button type="submit" name="action" value="save" class="btn btn-primary w-100" id="saveButton">
+                                <i class="fas fa-check me-2"></i>
+                                <span class="button-text">Save</span>
+                                <span class="button-spinner d-none">
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                    Saving...
+                                </span>
+                            </button>
+                        </div>
+                        </div>
+
+                        <!-- Save and Add New -->
+                        <div class="row mt-2">
+                        <div class="col-12">
+                            <button type="submit" name="action" value="saveAndNew" class="btn btn-outline-primary w-100">
+                                <i class="fas fa-plus me-2"></i>
+                                Save and Add New
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Transactions Preview (Small Widget) -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="fas fa-clock me-2"></i>
+                    Recently Added Transactions
+                </h6>
+            </div>
+            <div class="card-body">
+                <div id="recent-transactions-preview">
+                    <div class="text-center py-2">
+                        <div class="spinner-border spinner-border-sm text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script src="~/js/transaction-add.js"></script>
+}

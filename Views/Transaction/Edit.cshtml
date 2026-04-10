@@ -1,0 +1,293 @@
+@{
+    ViewData["Title"] = "İşlem Düzenle";
+}
+
+<!-- Sayfa Başlığı -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="mb-1">
+                    <i class="fas fa-edit me-2"></i>
+                    İşlem Düzenle
+                </h2>
+                <p class="text-white-50 mb-0">Mevcut işlem bilgilerini güncelleyin</p>
+            </div>
+            <div>
+                <a href="/Transaction" class="btn btn-outline-light me-2">
+                    <i class="fas fa-list me-2"></i>
+                    Listeye Dön
+                </a>
+                <a href="/Dashboard" class="btn btn-outline-light">
+                    <i class="fas fa-home me-2"></i>
+                    Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading State -->
+<div id="loading-form" class="row justify-content-center">
+    <div class="col-lg-8 col-xl-6">
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Yükleniyor...</span>
+                </div>
+                <div>İşlem bilgileri yükleniyor...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- İşlem Düzenleme Formu -->
+<div id="edit-form" class="row justify-content-center" style="display: none;">
+    <div class="col-lg-8 col-xl-6">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="fas fa-edit me-2"></i>
+                    İşlem Detayları
+                </h5>
+                <div class="badge bg-info" id="transaction-id-badge">
+                    ID: #0
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <!-- Mevcut İşlem Özeti -->
+                <div class="alert alert-light border" id="current-transaction-info">
+                    <div class="row">
+                        <div class="col-6">
+                            <small class="text-muted">Mevcut İşlem:</small><br>
+                            <strong id="current-description">-</strong>
+                        </div>
+                        <div class="col-6 text-end">
+                            <small class="text-muted">Tutar:</small><br>
+                            <span class="fw-bold" id="current-amount">$0.00</span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <small class="text-muted">Kategori:</small><br>
+                            <span id="current-category">-</span>
+                        </div>
+                        <div class="col-6 text-end">
+                            <small class="text-muted">Tarih:</small><br>
+                            <span id="current-date">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="editTransactionForm">
+                    <input type="hidden" id="transaction-id" name="id">
+                    
+                    <!-- İşlem Tipi -->
+                    <div class="mb-4">
+                        <label class="form-label">İşlem Tipi *</label>
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="radio" class="btn-check" name="transactionType" 
+                                       id="expenseRadio" value="expense">
+                                <label class="btn btn-outline-danger w-100 py-3" for="expenseRadio">
+                                    <i class="fas fa-arrow-down fa-lg d-block mb-2"></i>
+                                    <strong>Gider</strong>
+                                    <small class="d-block text-muted">Para çıkışı</small>
+                                </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="radio" class="btn-check" name="transactionType" 
+                                       id="incomeRadio" value="income">
+                                <label class="btn btn-outline-success w-100 py-3" for="incomeRadio">
+                                    <i class="fas fa-arrow-up fa-lg d-block mb-2"></i>
+                                    <strong>Gelir</strong>
+                                    <small class="d-block text-muted">Para girişi</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tutar -->
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Tutar *</label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="amount" name="amount" 
+                                   placeholder="0.00" step="0.01" required>
+                        </div>
+                        <div class="form-text">Virgülden sonra 2 basamak girebilirsiniz</div>
+                    </div>
+
+                    <!-- Kategori -->
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Kategori *</label>
+                        <select class="form-select form-select-lg" id="category" name="category" required>
+                            <option value="">Kategori seçin...</option>
+                            <!-- Gider kategorileri -->
+                            <optgroup label="📉 Gider Kategorileri" id="expense-categories">
+                                <option value="food">🍽️ Yemek & İçecek</option>
+                                <option value="transport">🚌 Ulaşım</option>
+                                <option value="shopping">🛒 Alışveriş</option>
+                                <option value="bills">📄 Faturalar</option>
+                                <option value="entertainment">🎮 Eğlence</option>
+                                <option value="health">🏥 Sağlık</option>
+                                <option value="education">📚 Eğitim</option>
+                                <option value="clothing">👕 Giyim</option>
+                                <option value="home">🏠 Ev & Yaşam</option>
+                                <option value="other-expense">📦 Diğer Giderler</option>
+                            </optgroup>
+                            <!-- Gelir kategorileri -->
+                            <optgroup label="📈 Gelir Kategorileri" id="income-categories" style="display: none;">
+                                <option value="salary">💼 Maaş</option>
+                                <option value="freelance">💻 Freelance</option>
+                                <option value="investment">📊 Yatırım</option>
+                                <option value="gift">🎁 Hediye</option>
+                                <option value="other-income">💰 Diğer Gelirler</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- Açıklama -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Açıklama *</label>
+                        <input type="text" class="form-control" id="description" name="description" 
+                               placeholder="İşlem açıklaması..." required>
+                        <div class="form-text">İşleminizi tanımlayıcı bir açıklama yazın</div>
+                    </div>
+
+                    <!-- Tarih -->
+                    <div class="mb-4">
+                        <label for="date" class="form-label">Tarih *</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
+                    </div>
+
+                    <!-- Değişiklik Özeti -->
+                    <div id="changes-summary" class="alert alert-info" style="display: none;">
+                        <h6><i class="fas fa-info-circle me-2"></i>Yapılan Değişiklikler:</h6>
+                        <ul id="changes-list" class="mb-0">
+                            <!-- Değişiklikler burada listelenecek -->
+                        </ul>
+                    </div>
+
+                    <!-- Form Butonları -->
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <a href="/Transaction" class="btn btn-outline-secondary w-100">
+                                <i class="fas fa-times me-2"></i>
+                                İptal
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <button type="submit" class="btn btn-primary w-100" id="updateButton">
+                                <i class="fas fa-save me-2"></i>
+                                <span class="button-text">Güncelle</span>
+                                <span class="button-spinner d-none">
+                                    <span class="spinner-border spinner-border-sm me-2"></span>
+                                    Güncelleniyor...
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Silme Butonu -->
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-danger mb-1">Tehlikeli Alan</h6>
+                                    <small class="text-muted">Bu işlemi kalıcı olarak silmek istiyorsanız</small>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-outline-danger" 
+                                            onclick="showDeleteConfirmation()">
+                                        <i class="fas fa-trash me-2"></i>
+                                        İşlemi Sil
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hata Durumu -->
+<div id="error-state" class="row justify-content-center" style="display: none;">
+    <div class="col-lg-8 col-xl-6">
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-exclamation-triangle text-warning fa-3x mb-3"></i>
+                <h5 class="text-muted">İşlem Bulunamadı</h5>
+                <p class="text-muted mb-4">Düzenlemek istediğiniz işlem bulunamadı veya erişim izniniz yok.</p>
+                <div>
+                    <a href="/Transaction" class="btn btn-primary me-2">
+                        <i class="fas fa-list me-2"></i>
+                        İşlem Listesi
+                    </a>
+                    <a href="/Dashboard" class="btn btn-outline-primary">
+                        <i class="fas fa-home me-2"></i>
+                        Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Silme Onay Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    İşlemi Sil
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <strong>Dikkat!</strong> Bu işlem geri alınamaz!
+                </div>
+                
+                <p>Bu işlemi kalıcı olarak silmek istediğinizden emin misiniz?</p>
+                
+                <div class="bg-light p-3 rounded" id="delete-transaction-details">
+                    <!-- İşlem detayları burada gösterilecek -->
+                </div>
+                
+                <div class="mt-3">
+                    <label class="form-label">Silme işlemini onaylamak için <strong>"SİL"</strong> yazın:</label>
+                    <input type="text" class="form-control" id="deleteConfirmText" 
+                           placeholder="SİL yazın..." maxlength="3">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    İptal
+                </button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteButton" disabled>
+                    <i class="fas fa-trash me-2"></i>
+                    <span class="delete-button-text">Kalıcı Olarak Sil</span>
+                    <span class="delete-button-spinner d-none">
+                        <span class="spinner-border spinner-border-sm me-2"></span>
+                        Siliniyor...
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    // URL'den transaction ID'yi al
+    const transactionId = window.location.pathname.split('/').pop();
+</script>
+<script src="~/js/transaction-edit.js"></script>
+}
